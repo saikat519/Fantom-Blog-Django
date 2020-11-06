@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+        {% block content %}
+        
+        <!--================Home Banner Area =================-->
+        <section class="banner_area">
+            <div class="banner_inner d-flex align-items-center">
+            	<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+				<div class="container">
+					<div class="banner_content text-center">
+						<h2>Login</h2>
+						<div class="page_link">
+							<a href="{% url 'index' %}">Home</a>
+							<a href="#">{{ category.title }}</a>
+						</div>
+					</div>
+				</div>
+            </div>
+        </section>
+        <!--================End Home Banner Area =================-->
+        
+        <!--================Blog Area =================-->
+        <section class="blog_area p_120">
+            <div class="container">
+                <div class="row">
+
+
+          
+                    <div class="col-lg-8">
+
+
+                        <div class="blog_left_sidebar">
+
+                        {% if not user.is_authenticated %}
+
+                             <form method="post">
+                            {% csrf_token %}
+                            <h2 style="color:#192A56;text-align:center;">Login</h2>
+                            </br>
+
+                                    {% if form.errors %}
+
+                                        <div class="errors">
+
+                                            <div class="inner">
+                                                <h4 style="color: red;">Invalid Username or Password</h4>
+                                                    <ul>
+                                                    {% for field in form %}
+                                                        {% if field.errors %}
+                                                           
+                                                            <li>  {{ field.errors|striptags }} </li>
+
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    </ul>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+
+                            <div class="mt-10">
+                            <input type="text" name="username" placeholder="Username"
+                             onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" 
+                             required="" class="single-input">
+                            </div>
+
+
+                            <div class="mt-10">
+                            <input type="password" name="password" placeholder="Password"
+                             onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" 
+                             required="" class="single-input">
+                            </div>
+
+                            </br>
+                          
+                          <div class="container">
+                            <input type="submit" value="Login" class="genric-btn success circle" style="font-size: 15px;margin-left:320px;">
+                        </div>
+                        </form>
+                        {% else %}
+
+                            <h3 style="color: red;">You are already Logged In</h3>
+
+                        {% endif %}
+
+                    
+                        </div>
+                    </div>
+                    
+                   
+		{% include 'right_side.html' %}
+
+                </div>
+            </div>
+        </section>
+        <!--================Blog Area =================-->
+      {% endblock %}
